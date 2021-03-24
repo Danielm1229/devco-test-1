@@ -4,6 +4,7 @@ import { EmployeeService } from '../../services/employee.service';
 import {MatDialog} from '@angular/material/dialog';
 import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 
 @Component({
   selector: 'app-employees-table',
@@ -24,16 +25,28 @@ export class EmployeesTableComponent implements OnInit {
     })
   }
 
-  openEditDialog(){
-    const dialogRef = this.dialog.open(EditDialogComponent);
+  openEditDialog(element){
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: { dataEmployee: element },
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
-  openDeleteDialog(){
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
+  openDeleteDialog(element){
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: { id: element.EmployeeId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openCreateDialog(){
+    const dialogRef = this.dialog.open(CreateDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

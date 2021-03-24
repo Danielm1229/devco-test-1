@@ -1,5 +1,13 @@
 .container {
     width: 1400px;
+    &__button{
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 1rem;
+    }
+    &__button--actions{
+        margin-right: 1rem;
+    }
 }
 
 table {

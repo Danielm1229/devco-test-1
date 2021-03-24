@@ -36,14 +36,16 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-raised-button (click)="openEditDialog()" color="primary">
+                <button mat-raised-button (click)="openEditDialog(element)" class="container__button--actions" color="primary">
                     <span class="material-icons">mode_edit</span></button>
-                <button mat-raised-button (click)="openDeleteDialog()" color="warn">
+                <button mat-raised-button (click)="openDeleteDialog(element)" class="container__button--actions" color="warn">
                     <span class="material-icons">delete</span></button>
             </td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <div class="container__button ">
+        <button mat-raised-button (click)="openCreateDialog()" color="primary"><span class="">Crear empleado</span></button>
+    </div>
 </div>
