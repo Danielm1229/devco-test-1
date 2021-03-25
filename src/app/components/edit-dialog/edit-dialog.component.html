@@ -5,37 +5,48 @@
             <mat-label>Employee id</mat-label>
             <input matInput type="text" formControlName="EmployeeId" readonly style="cursor: not-allowed;">
         </mat-form-field>
+        <p *ngIf="form.EmployeeId.touched && form.EmployeeId.invalid && form.EmployeeId.errors.required">Employee Id is required.</p>
+        <p *ngIf="form.EmployeeId.touched && form.EmployeeId.invalid && form.EmployeeId.errors.pattern">Enter only number.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Name</mat-label>
             <input matInput type="text" formControlName="Name">
         </mat-form-field>
+        <p *ngIf="form.Name.touched && form.Name.invalid && form.Name.errors.required">Name is required.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Last name</mat-label>
             <input matInput type="text" formControlName="LastName">
         </mat-form-field>
+        <p *ngIf="form.LastName.touched && form.LastName.invalid && form.LastName.errors.required">LastName is required.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Position</mat-label>
             <input matInput type="text" formControlName="Position">
         </mat-form-field>
+        <p *ngIf="form.Position.touched && form.Position.invalid && form.Position.errors.required">Position is required.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Salary</mat-label>
             <input matInput type="number" formControlName="Salary" maxlength="7">
         </mat-form-field>
+        <p *ngIf="form.Salary.touched && form.Salary.invalid && form.Salary.errors.required">Salary is required.</p>
+        <p *ngIf="form.Salary.touched && form.Salary.invalid && form.Salary.errors.pattern">Enter only number.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Phone number</mat-label>
             <input matInput type="number" formControlName="PhoneNumber" minlength="7" maxlength="10">
         </mat-form-field>
+        <p *ngIf="form.PhoneNumber.touched && form.PhoneNumber.invalid && form.PhoneNumber.errors.required">Phone number is required.</p>
+        <p *ngIf="form.PhoneNumber.touched && form.PhoneNumber.invalid && form.PhoneNumber.errors.pattern">Enter only number.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Address</mat-label>
             <input matInput type="text" formControlName="Address">
         </mat-form-field>
+        <p *ngIf="form.Address.touched && form.Address.invalid && form.Address.errors.required">Address is required.</p>
         <mat-form-field class="example-full-width">
             <mat-label>Client</mat-label>
             <input matInput type="text" formControlName="Client">
         </mat-form-field>
+        <p *ngIf="form.Client.touched && form.Client.invalid && form.Client.errors.required">Client is required.</p>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-raised-button [mat-dialog-close]="true" (click)="updateEmployee()" color="primary" type="submit">Edit</button>
+    <button mat-raised-button [mat-dialog-close]="true" (click)="updateEmployee()" [disabled]="!employeeStructure.valid" color="primary" type="submit">Edit</button>
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
 </mat-dialog-actions>

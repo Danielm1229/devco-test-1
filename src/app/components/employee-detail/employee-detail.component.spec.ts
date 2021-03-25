@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { EmployeeDetailComponent } from './employee-detail.component';
 
@@ -8,7 +11,12 @@ describe('EmployeeDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmployeeDetailComponent ]
+      declarations: [ EmployeeDetailComponent ],
+      imports: [
+        MatButtonModule,
+        MatDialogModule,
+        HttpClientModule
+      ],
     })
     .compileComponents();
   });

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -10,21 +10,24 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class EditDialogComponent implements OnInit {
 
+  private readonly requiredAndPattern = [Validators.required, Validators.pattern("^[0-9]*$")];
+  private readonly required = [Validators.required];
+
   employeeStructure = new FormGroup ({
-    EmployeeId: new FormControl('', Validators.required),
-    Address: new FormControl('', Validators.required),
-    Client: new FormControl('', Validators.required),
-    PhoneNumber: new FormControl('', Validators.required),
-    Salary: new FormControl('', Validators.required),
-    Position: new FormControl('', Validators.required),
-    LastName: new FormControl('', Validators.required),
-    Name: new FormControl('', Validators.required),
+    EmployeeId: new FormControl('', this.requiredAndPattern),
+    Address: new FormControl('', this.required),
+    Client: new FormControl('', this.required),
+    PhoneNumber: new FormControl('', this.requiredAndPattern),
+    Salary: new FormControl('', this.requiredAndPattern),
+    Position: new FormControl('', this.required),
+    LastName: new FormControl('', this.required),
+    Name: new FormControl('', this.required),
   });
   
-  constructor(public employeeService: EmployeeService, @Inject(MAT_DIALOG_DATA) public data: {}) { 
+  constructor(public employeeService: EmployeeService, @Inject(MAT_DIALOG_DATA) public data: {}, private dialogRef: MatDialogRef<EditDialogComponent>) { 
     let dataEmployee = this.data['dataEmployee'];
     this.employeeStructure.setValue(dataEmployee);
-    console.log(this.employeeStructure.value.EmployeeId);
+    console.log(this.employeeStructure.value);
   }
 
   ngOnInit(): void {
@@ -34,7 +37,11 @@ export class EditDialogComponent implements OnInit {
     console.log(this.employeeStructure.value);
     this.employeeService.updateEmployee(this.employeeStructure.value, this.employeeStructure.value.EmployeeId).subscribe(resp => {
       alert(resp);
-      window.location.reload();
+      this.dialogRef.close();
     })
+  }
+
+  get form(){
+    return this.employeeStructure.controls;
   }
 }

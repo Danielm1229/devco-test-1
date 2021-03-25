@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class DeleteDialogComponent implements OnInit {
 
-  constructor(public employeeService: EmployeeService, @Inject(MAT_DIALOG_DATA) public data: {id: string}) { }
+  constructor(public employeeService: EmployeeService, @Inject(MAT_DIALOG_DATA) public data: {id: string}, private dialogRef: MatDialogRef<DeleteDialogComponent>) { }
 
   ngOnInit(): void {
   }
@@ -17,7 +17,7 @@ export class DeleteDialogComponent implements OnInit {
   deleteEmployee(){
     this.employeeService.deleteEmployee(this.data.id).subscribe(resp =>{
       alert(resp);
-      window.location.reload();
+      this.dialogRef.close();
     })
   }
 }

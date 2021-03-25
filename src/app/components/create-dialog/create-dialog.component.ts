@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -9,18 +10,21 @@ import { EmployeeService } from 'src/app/services/employee.service';
 })
 export class CreateDialogComponent implements OnInit {
 
+  private readonly requiredAndPattern = [Validators.required, Validators.pattern("^[0-9]*$")];
+  private readonly required = [Validators.required];
+
   employeeStructure = new FormGroup ({
-    EmployeeId: new FormControl('', Validators.required),
-    Address: new FormControl('', Validators.required),
-    Client: new FormControl('', Validators.required),
-    PhoneNumber: new FormControl('', Validators.required),
-    Salary: new FormControl('', Validators.required),
-    Position: new FormControl('', Validators.required),
-    LastName: new FormControl('', Validators.required),
-    Name: new FormControl('', Validators.required),
+    EmployeeId: new FormControl('', this.requiredAndPattern),
+    Address: new FormControl('', this.required),
+    Client: new FormControl('', this.required),
+    PhoneNumber: new FormControl('', this.requiredAndPattern),
+    Salary: new FormControl('', this.requiredAndPattern),
+    Position: new FormControl('', this.required),
+    LastName: new FormControl('', this.required),
+    Name: new FormControl('', this.required),
   });
 
-  constructor(public employeeService: EmployeeService, private formBuilder: FormBuilder) { }
+  constructor(public employeeService: EmployeeService, private dialogRef: MatDialogRef<CreateDialogComponent>) { }
 
   ngOnInit(): void {
   }
@@ -29,7 +33,11 @@ export class CreateDialogComponent implements OnInit {
     console.log(this.employeeStructure.value);
     this.employeeService.createEmployee(this.employeeStructure.value).subscribe(resp => {
       alert(resp);
-      window.location.reload();
+      this.dialogRef.close();
     })
+  }
+
+  get form(){
+    return this.employeeStructure.controls;
   }
 }

@@ -49,7 +49,7 @@ export class EmployeesTableComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.ngOnInit();
     });
   }
 }

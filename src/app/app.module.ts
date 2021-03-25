@@ -19,7 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule} from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @NgModule({
   declarations: [

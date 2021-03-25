@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +13,23 @@ export class EmployeeService {
     })
   };
 
-  configUrl = "https://ozqim2rsz3.execute-api.us-east-2.amazonaws.com/";
   employees = [];
 
   constructor(private http: HttpClient) { }
 
   getAllEmployees(){
-    return this.http.get(this.configUrl + "items");
+    return this.http.get(environment.configUrl + "items");
   }
 
   createEmployee(employee){
-    return this.http.put(this.configUrl + "items", employee, this.httpOptions).pipe();
+    return this.http.put(environment.configUrl + "items", employee, this.httpOptions);
   }
 
   deleteEmployee(employeeId: string){
-    return this.http.delete(this.configUrl + "items/" + employeeId).pipe();
+    return this.http.delete(environment.configUrl + "items/" + employeeId);
   }
 
   updateEmployee(employee, employeeId: string){
-    return this.http.put(this.configUrl + "items/" + employeeId, employee, this.httpOptions).pipe();
+    return this.http.put(environment.configUrl + "items/" + employeeId, employee, this.httpOptions);
   }
 }
