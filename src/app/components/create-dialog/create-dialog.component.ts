@@ -34,7 +34,7 @@ export class CreateDialogComponent implements OnInit {
     this.employeeService.createEmployee(this.employeeStructure.value).subscribe(resp => {
       alert(resp);
       this.dialogRef.close();
-    })
+    });
   }
 
   get form(){

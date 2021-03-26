@@ -20,9 +20,13 @@ export class EmployeesTableComponent implements OnInit {
   constructor(public employeeService: EmployeeService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.getEmployees();
+  }
+
+  getEmployees(){
     this.employeeService.getAllEmployees().subscribe(resp => {
-        this.employees = resp['Items'];
-    })
+      this.employees = resp['Items'];
+    });
   }
 
   openEditDialog(element){
@@ -31,7 +35,7 @@ export class EmployeesTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      dialogRef.close(this.ngOnInit());
     });
   }
 
@@ -41,7 +45,7 @@ export class EmployeesTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      dialogRef.close(this.ngOnInit());
     });
   }
 
@@ -49,7 +53,7 @@ export class EmployeesTableComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      dialogRef.close(this.ngOnInit());
     });
   }
 }
